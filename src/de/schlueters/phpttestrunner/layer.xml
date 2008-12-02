@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE filesystem PUBLIC "-//NetBeans//DTD Filesystem 1.1//EN" "http://www.netbeans.org/dtds/filesystem-1_1.dtd">
+<filesystem>
+    <folder name="Actions">
+        <folder name="Debug">
+            <file name="de-schlueters-phpttestrunner-StartWizard.instance"/>
+        </folder>
+        <folder name="Window">
+            <file name="de-schlueters-phpttestrunner-gui-TestResultsAction.instance"/>
+        </folder>
+    </folder>
+    <folder name="Menu">
+        <folder name="RunProject">
+            <file name="de-schlueters-phpttestrunner-StartWizard.shadow">
+                <attr name="originalFile" stringvalue="Actions/Debug/de-schlueters-phpttestrunner-StartWizard.instance"/>
+                <attr name="position" intvalue="0"/>
+            </file>
+        </folder>
+        <folder name="Window">
+            <file name="TestResultsAction.shadow">
+                <attr name="originalFile" stringvalue="Actions/Window/de-schlueters-phpttestrunner-gui-TestResultsAction.instance"/>
+            </file>
+        </folder>
+    </folder>
+    <folder name="Toolbars">
+        <folder name="Build">
+            <file name="de-schlueters-phpttestrunner-StartWizard.shadow">
+                <attr name="originalFile" stringvalue="Actions/Debug/de-schlueters-phpttestrunner-StartWizard.instance"/>
+                <attr name="position" intvalue="500"/>
+            </file>
+        </folder>
+    </folder>
+    <folder name="Windows2">
+        <folder name="Components">
+            <file name="TestResultsTopComponent.settings" url="TestResultsTopComponentSettings.xml"/>
+            <file name="testRunnerOutputTopComponent.settings" url="testRunnerOutputTopComponentSettings.xml"/>
+        </folder>
+        <folder name="Modes">
+            <folder name="bottomSlidingSide">
+                <!-- <file name="TestResultsTopComponent.wstcref" url="TestResultsTopComponentWstcref.xml"/> -->
+            </folder>
+            <folder name="output">
+                <!--
+                <file name="TestResultsTopComponent.wstcref" url="TestResultsTopComponentWstcref.xml"/>
+                <file name="testRunnerOutputTopComponent.wstcref" url="testRunnerOutputTopComponentWstcref.xml"/>
+                -->
+            </folder>
+        </folder>
+    </folder>
+</filesystem>
