@@ -1,12 +1,12 @@
 package de.schlueters.phpttestrunner;
 
 import de.schlueters.phpttestrunner.gui.TestResultsTopComponent;
-import de.schlueters.phpttestrunner.runner.FailedOnlyRunner;
 import de.schlueters.phpttestrunner.results.Result;
 import de.schlueters.phpttestrunner.results.fromhtmloutput.HTMLResult;
 import de.schlueters.phpttestrunner.results.Test;
 import de.schlueters.phpttestrunner.gui.startWizard.*;
 
+import de.schlueters.phpttestrunner.util.ExternalProcessRunner;
 import org.openide.util.HelpCtx;
 import org.openide.util.NbBundle;
 import org.openide.util.actions.CallableSystemAction;
@@ -83,9 +83,9 @@ public final class StartWizard extends CallableSystemAction {
             e.printStackTrace();
             NotifyDescriptor ex_dlg = new NotifyDescriptor.Message(e, NotifyDescriptor.ERROR_MESSAGE);
             DialogDisplayer.getDefault().notify(ex_dlg);
+         } finally {
+            resultfile.delete();
          }
-        
-        resultfile.delete();
     }
     
     public String getName() {
@@ -121,4 +121,22 @@ public final class StartWizard extends CallableSystemAction {
         }
     }
     */
+
+	private class FailedOnlyRunner implements Runnable {
+        ProcessBuilder command;
+
+        public FailedOnlyRunner(File resultfile, String testBinary, String tests, String runtests, String args, String testingBinary) {
+            command = new ProcessBuilder(testingBinary, runtests, "--html", resultfile.getAbsolutePath(), /*args,*/ tests);
+            command.environment().put("TEST_PHP_EXECUTABLE", testingBinary);
+            command.directory(new File("/home/johannes/work/mysql/php/trunk/tests/"));
+        }
+
+        public void run() {
+            try {
+                ExternalProcessRunner.launchProcess("run-tests.php", command);
+            } catch (java.io.IOException e) {
+                e.printStackTrace();
+            }
+        }
+    }
 }
