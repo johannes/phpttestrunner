@@ -52,7 +52,7 @@ public final class StartWizard extends CallableSystemAction {
 
 		wzrdVisualPanel1 vpanel = (wzrdVisualPanel1)wpanel.getComponent();
 
-        FailedOnlyRunner runner = new FailedOnlyRunner(
+        phptTestRunner runner = new phptTestRunner(
             resultfile,
 			vpanel.getTestingBinaryFileName(),
 			vpanel.getTestsDirName(),
@@ -122,10 +122,10 @@ public final class StartWizard extends CallableSystemAction {
     }
     */
 
-	private class FailedOnlyRunner implements Runnable {
+	private class phptTestRunner implements Runnable {
         ProcessBuilder command;
 
-        public FailedOnlyRunner(File resultfile, String testBinary, String tests, String runtests, String args, String testingBinary) {
+        public phptTestRunner(File resultfile, String testBinary, String tests, String runtests, String args, String testingBinary) {
             command = new ProcessBuilder(testingBinary, runtests, "--html", resultfile.getAbsolutePath(), /*args,*/ tests);
             command.environment().put("TEST_PHP_EXECUTABLE", testingBinary);
             command.directory(new File("/home/johannes/work/mysql/php/trunk/tests/"));
