@@ -35,8 +35,9 @@ public final class StartWizard extends CallableSystemAction {
             NotifyDescriptor ex_dlg = new NotifyDescriptor.Message(e.toString()+" Couldn't create temp file!", NotifyDescriptor.ERROR_MESSAGE);
             DialogDisplayer.getDefault().notify(ex_dlg);
         }
-        
-        WizardDescriptor.Panel[] panel = { new wzrdWizardPanel1() };
+
+		wzrdWizardPanel1 wpanel = new wzrdWizardPanel1();
+        WizardDescriptor.Panel[] panel = { wpanel };
         WizardDescriptor descr = new WizardDescriptor(panel);
         
         descr.setTitleFormat(new java.text.MessageFormat("Run phpt tests"));
@@ -49,13 +50,15 @@ public final class StartWizard extends CallableSystemAction {
             return;
         }
 
+		wzrdVisualPanel1 vpanel = (wzrdVisualPanel1)wpanel.getComponent();
+
         FailedOnlyRunner runner = new FailedOnlyRunner(
             resultfile,
-            "php",
-            "/home/johannes/src/php/PHP_5_3/ext/standard/tests",
-            "/home/johannes/src/php/PHP_5_3/run-tests.php", 
-            "", // args
-            "/home/johannes/src/php/build/5.3-debug-notsrm/sapi/cli/php");
+			vpanel.getTestingBinaryFileName(),
+			vpanel.getTestsDirName(),
+			vpanel.getruntestsFileName(),
+            vpanel.getArguements(),
+            vpanel.getTestedBinaryFileName());
         
         Task task = new Task(runner);
 //        task.addTaskListener(new RunnerListener());
@@ -65,7 +68,8 @@ public final class StartWizard extends CallableSystemAction {
         task.waitFinished();
         
         try {
-            //Result res = new FailedResults("/tmp/result.txt");
+            //Result res = new FailedResults("/tmp/phptresult.html");
+			//Result res = new HTMLResult(new File("/tmp/phptresult.html"));
             Result res = new HTMLResult(resultfile);
             final List<Test> executedTests = res.getExecutedTests();
 
@@ -76,6 +80,7 @@ public final class StartWizard extends CallableSystemAction {
             comp.setVisible(true);
             comp.setTests(executedTests);                
          } catch (Exception e) {
+            e.printStackTrace();
             NotifyDescriptor ex_dlg = new NotifyDescriptor.Message(e, NotifyDescriptor.ERROR_MESSAGE);
             DialogDisplayer.getDefault().notify(ex_dlg);
          }
