@@ -36,6 +36,11 @@ public abstract class Result {
     protected abstract void parse(File file) throws Exception;
     
     protected void testExecuted(Test test) {
+        if (test == null || test.getResult() == null) {
+            // TODO this should never happen ...
+            return;
+        }
+
         executedTests.add(test);
         switch (test.getResult()) {
             case PASS:
