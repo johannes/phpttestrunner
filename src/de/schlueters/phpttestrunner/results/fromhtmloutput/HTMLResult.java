@@ -6,7 +6,6 @@
 package de.schlueters.phpttestrunner.results.fromhtmloutput;
 
 import org.xml.sax.InputSource;
-import java.io.*;
 
 import java.util.StringTokenizer;
 
@@ -16,6 +15,9 @@ import org.w3c.dom.NodeList;
 import org.apache.xerces.parsers.DOMParser;
 
 import de.schlueters.phpttestrunner.results.Result;
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
 
 
 /**

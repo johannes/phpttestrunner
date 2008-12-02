@@ -7,10 +7,8 @@ package de.schlueters.phpttestrunner.gui;
 
 import java.awt.Component;
 import javax.swing.SwingUtilities;
-import org.netbeans.api.diff.*;
 import org.openide.windows.TopComponent;
 import org.openide.util.HelpCtx;
-import org.openide.util.NbBundle;
 import de.schlueters.phpttestrunner.results.Test;
 
 /*
@@ -18,6 +16,10 @@ import org.openide.text.CloneableEditorSupport;
 import javax.swing.text.EditorKit;
 */
 import javax.swing.JEditorPane;
+import org.netbeans.api.diff.Diff;
+import org.netbeans.api.diff.DiffView;
+import org.netbeans.api.diff.Difference;
+import org.netbeans.api.diff.StreamSource;
 
 /**
  *
