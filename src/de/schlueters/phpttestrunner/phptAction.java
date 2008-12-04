@@ -26,7 +26,7 @@ import org.openide.WizardDescriptor;
 import java.io.File;
 import java.util.List;
 
-public final class StartWizard extends CallableSystemAction {
+public final class phptAction extends CallableSystemAction {
 
     public void performAction() {
         File resultfile = null;
@@ -90,7 +90,7 @@ public final class StartWizard extends CallableSystemAction {
     }
     
     public String getName() {
-        return NbBundle.getMessage(StartWizard.class, "CTL_StartWizard");
+        return NbBundle.getMessage(phptAction.class, "CTL_StartWizard");
     }
 
     @Override

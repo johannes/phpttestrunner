@@ -3,7 +3,7 @@
 <filesystem>
     <folder name="Actions">
         <folder name="Debug">
-            <file name="de-schlueters-phpttestrunner-StartWizard.instance"/>
+            <file name="de-schlueters-phpttestrunner-phptAction.instance"/>
         </folder>
         <folder name="Window">
             <file name="de-schlueters-phpttestrunner-gui-TestResultsAction.instance"/>
@@ -12,7 +12,7 @@
     <folder name="Menu">
         <folder name="RunProject">
             <file name="de-schlueters-phpttestrunner-StartWizard.shadow">
-                <attr name="originalFile" stringvalue="Actions/Debug/de-schlueters-phpttestrunner-StartWizard.instance"/>
+                <attr name="originalFile" stringvalue="Actions/Debug/de-schlueters-phpttestrunner-phptAction.instance"/>
                 <attr name="position" intvalue="0"/>
             </file>
         </folder>
@@ -25,7 +25,7 @@
     <folder name="Toolbars">
         <folder name="Build">
             <file name="de-schlueters-phpttestrunner-StartWizard.shadow">
-                <attr name="originalFile" stringvalue="Actions/Debug/de-schlueters-phpttestrunner-StartWizard.instance"/>
+                <attr name="originalFile" stringvalue="Actions/Debug/de-schlueters-phpttestrunner-phptAction.instance"/>
                 <attr name="position" intvalue="500"/>
             </file>
         </folder>
