@@ -34,7 +34,6 @@ public class HTMLResult extends Result {
         parser.parse(new InputSource(new BufferedReader(new FileReader(file))));
         Document doc = parser.getDocument();
         String redirectBase = null;
-        String replaceBase = null;
         
         NodeList trs = doc.getElementsByTagName("tr");
         for (int i = 0; i < trs.getLength(); i++) {
@@ -42,7 +41,7 @@ public class HTMLResult extends Result {
             NodeList tds = tr.getChildNodes();
             
             if (tds.getLength() == 6) {            
-                testExecuted(new HTMLTest(tds, redirectBase, replaceBase));
+                testExecuted(new HTMLTest(tds, redirectBase));
             } else if (tds.getLength() == 1) {
                 StringTokenizer tokenzier = new StringTokenizer(tds.item(0).getFirstChild().getNodeValue());
                 
@@ -50,8 +49,6 @@ public class HTMLResult extends Result {
                 if (redirectBase == null) {
                     redirectBase = tokenzier.nextToken();
                     assert(tokenzier.nextToken().charAt(0) == '(');
-                    replaceBase = tokenzier.nextToken().substring(1);
-                    replaceBase = replaceBase.substring(0, replaceBase.lastIndexOf("/"));
                 } else {
                     redirectBase = null;
                 }

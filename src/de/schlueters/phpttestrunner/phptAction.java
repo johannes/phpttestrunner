@@ -127,9 +127,12 @@ public final class phptAction extends CallableSystemAction {
         ProcessBuilder command;
 
         public phptTestRunner(File resultfile, String testBinary, String tests, String runtests, String args, String testingBinary) {
+			File testdir = new File(tests);
+			if (!testdir.isDirectory()) testdir = testdir.getParentFile();
+
             command = new ProcessBuilder(testingBinary, runtests, "--html", resultfile.getAbsolutePath(), /*args,*/ tests);
             command.environment().put("TEST_PHP_EXECUTABLE", testingBinary);
-            command.directory(new File("/home/johannes/work/mysql/php/trunk/tests/"));
+            //command.directory(testdir);
         }
 
         public void run() {

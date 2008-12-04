@@ -17,12 +17,10 @@ import org.w3c.dom.NodeList;
 public class HTMLTest extends Test {
     NodeList nodes;
     String redirect;
-    String base;
     
-    public HTMLTest(NodeList nodes, String redirect, String base) {
+    public HTMLTest(NodeList nodes, String redirect) {
         this.nodes    = nodes;
         this.redirect = redirect;
-        this.base     = base;
     }
     
     @Override
@@ -33,27 +31,20 @@ public class HTMLTest extends Test {
     @Override
     public String getFilename() {
         if (redirect == null) {
-            return "/home/johannes/work/mysql/php/trunk/tests/"+nodes.item(5).getFirstChild().getTextContent();
+            return nodes.item(5).getFirstChild().getTextContent();
         } else {
             String file = nodes.item(5).getFirstChild().getTextContent();
-            file = file.substring(file.indexOf(base) + base.length() + 1);
-            return "/home/johannes/work/mysql/php/trunk/tests/"+redirect+"/"+file;
+            return redirect+"/"+file;
         }
     }
     
     public String getExpectedFilename() {
         String phptname = nodes.item(5).getFirstChild().getTextContent();
-        if (!phptname.startsWith("/")) {
-            phptname = "/home/johannes/work/mysql/php/trunk/tests/"+phptname;
-        }
         return phptname.substring(0, phptname.length()-"phpt".length())+"exp";
     }
     
     public String getActualFilename() {
         String phptname = nodes.item(5).getFirstChild().getTextContent();
-        if (!phptname.startsWith("/")) {
-            phptname = "/home/johannes/work/mysql/php/trunk/tests/"+phptname;
-        }
         return phptname.substring(0, phptname.length()-"phpt".length())+"out";
     }
     
