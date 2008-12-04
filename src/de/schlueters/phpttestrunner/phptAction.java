@@ -11,8 +11,6 @@ import org.openide.util.HelpCtx;
 import org.openide.util.NbBundle;
 import org.openide.util.actions.CallableSystemAction;
 
-import org.openide.util.Task;
-import org.openide.util.RequestProcessor;
 import java.awt.Dialog;
 import org.openide.NotifyDescriptor;
 import org.openide.DialogDisplayer;
@@ -20,7 +18,7 @@ import org.openide.DialogDisplayer;
 import org.openide.WizardDescriptor;
 
 import java.io.File;
-import org.openide.util.TaskListener;
+import javax.swing.SwingWorker;
 
 public final class phptAction extends CallableSystemAction {
 
@@ -49,32 +47,15 @@ public final class phptAction extends CallableSystemAction {
 
 		wzrdVisualPanel1 vpanel = (wzrdVisualPanel1)wpanel.getComponent();
 
-        phptTestRunner runner = new phptTestRunner(
+        TestWorker runner = new TestWorker(
             resultfile,
 			vpanel.getTestingBinaryFileName(),
 			vpanel.getTestsDirName(),
 			vpanel.getruntestsFileName(),
             vpanel.getArguements(),
             vpanel.getTestedBinaryFileName());
-     
-        Task task = new Task(runner);
-//        task.addTaskListener(new RunnerListener(resultfile));
-        RequestProcessor.getDefault().post(task);
-        
-        task.waitFinished();
-        
-        try {
-            //Result res = new FailedResults("/tmp/phptresult.html");
-			//Result res = new HTMLResult(new File("/tmp/phptresult.html"));
-            Result res = new HTMLResult(resultfile);
-			TestResultsTopComponent.showResults(res);
-         } catch (Exception e) {
-            e.printStackTrace();
-            NotifyDescriptor ex_dlg = new NotifyDescriptor.Message(e, NotifyDescriptor.ERROR_MESSAGE);
-            DialogDisplayer.getDefault().notify(ex_dlg);
-         } finally {
-            resultfile.delete();
-         }
+
+		runner.execute();
     }
     
     public String getName() {
@@ -95,14 +76,40 @@ public final class phptAction extends CallableSystemAction {
         return false;
     }
     
-    private class RunnerListener implements TaskListener {
+    private class TestWorker extends SwingWorker {
+		private ProcessBuilder command;
 		private File resultfile;
+		private String testBinary;
+		private String tests;
+		private String runtests;
+		private String args;
+		private String testingBinary;
 
-		public RunnerListener(File resultfile) {
+		public TestWorker(File resultfile, String testBinary, String tests, String runtests, String args, String testingBinary) {
 			this.resultfile = resultfile;
+			this.testBinary = testBinary;
+			this.tests = tests;
+			this.runtests = runtests;
+			this.args = args;
+			this.testingBinary = testBinary;
 		}
 
-        public void taskFinished(Task task) {
+		public Object doInBackground() {
+			File testdir = new File(tests);
+			if (!testdir.isDirectory()) testdir = testdir.getParentFile();
+
+            command = new ProcessBuilder(testingBinary, runtests, "--html", resultfile.getAbsolutePath(), /*args,*/ tests);
+            command.environment().put("TEST_PHP_EXECUTABLE", testingBinary);
+			try {
+				ExternalProcessRunner.launchProcess("run-tests.php", command);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			return null;
+		}
+
+		@Override
+        public void done() {
 			try {
 				//Result res = new FailedResults("/tmp/phptresult.html");
 				//Result res = new HTMLResult(new File("/tmp/phptresult.html"));
@@ -116,27 +123,5 @@ public final class phptAction extends CallableSystemAction {
 				resultfile.delete();
 			 }
 		}
-    }
-    
-
-	private class phptTestRunner implements Runnable {
-        ProcessBuilder command;
-
-        public phptTestRunner(File resultfile, String testBinary, String tests, String runtests, String args, String testingBinary) {
-			File testdir = new File(tests);
-			if (!testdir.isDirectory()) testdir = testdir.getParentFile();
-
-            command = new ProcessBuilder(testingBinary, runtests, "--html", resultfile.getAbsolutePath(), /*args,*/ tests);
-            command.environment().put("TEST_PHP_EXECUTABLE", testingBinary);
-            //command.directory(testdir);
-        }
-
-        public void run() {
-            try {
-                ExternalProcessRunner.launchProcess("run-tests.php", command);
-            } catch (java.io.IOException e) {
-                e.printStackTrace();
-            }
-        }
     }
 }
