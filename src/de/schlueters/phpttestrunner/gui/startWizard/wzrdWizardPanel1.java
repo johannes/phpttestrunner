@@ -5,9 +5,11 @@
 package de.schlueters.phpttestrunner.gui.startWizard;
 
 import java.awt.Component;
+import java.util.prefs.Preferences;
 import javax.swing.event.ChangeListener;
 import org.openide.WizardDescriptor;
 import org.openide.util.HelpCtx;
+import org.openide.util.NbPreferences;
 
 public class wzrdWizardPanel1 implements WizardDescriptor.Panel {
 
@@ -22,7 +24,7 @@ public class wzrdWizardPanel1 implements WizardDescriptor.Panel {
     // create only those which really need to be visible.
     public Component getComponent() {
         if (component == null) {
-            component = new wzrdVisualPanel1();
+            component = new wzrdVisualPanel1(NbPreferences.forModule(this.getClass()));
         }
         return component;
     }
@@ -81,6 +83,13 @@ public class wzrdWizardPanel1 implements WizardDescriptor.Panel {
     }
 
     public void storeSettings(Object settings) {
+		wzrdVisualPanel1 panel = (wzrdVisualPanel1)getComponent();
+		Preferences prefs = NbPreferences.forModule(this.getClass());
+		prefs.put("runtests", panel.getruntestsFileName());
+		prefs.put("tested",   panel.getTestedBinaryFileName());
+		prefs.put("testing",  panel.getTestingBinaryFileName());
+		prefs.put("tests",    panel.getTestsDirName());
+		prefs.put("argss",    panel.getArguements());
     }
 }
 

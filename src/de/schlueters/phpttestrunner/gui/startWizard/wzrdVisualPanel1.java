@@ -5,13 +5,20 @@
 
 package de.schlueters.phpttestrunner.gui.startWizard;
 
+import java.util.prefs.Preferences;
 import javax.swing.JPanel;
 
 public final class wzrdVisualPanel1 extends JPanel {
 
     /** Creates new form wzrdVisualPanel1 */
-    public wzrdVisualPanel1() {
+    public wzrdVisualPanel1(Preferences prefs) {
         initComponents();
+
+		runtestsTextField.  setText(prefs.get("runtests", ""));
+		testedTextField.    setText(prefs.get("tested", ""));
+		testingTextField.   setText(prefs.get("testing", ""));
+		testsTextField.     setText(prefs.get("tests", ""));
+		arguementsTextField.setText(prefs.get("argss", ""));
     }
 
     @Override
@@ -58,6 +65,12 @@ public final class wzrdVisualPanel1 extends JPanel {
         arguementsTextField = new javax.swing.JTextField();
         testingTextField = new javax.swing.JTextField();
 
+        addComponentListener(new java.awt.event.ComponentAdapter() {
+            public void componentHidden(java.awt.event.ComponentEvent evt) {
+                formComponentHidden(evt);
+            }
+        });
+
         org.openide.awt.Mnemonics.setLocalizedText(jLabel1, org.openide.util.NbBundle.getMessage(wzrdVisualPanel1.class, "wzrdVisualPanel1.jLabel1.text")); // NOI18N
 
         org.openide.awt.Mnemonics.setLocalizedText(jLabel2, org.openide.util.NbBundle.getMessage(wzrdVisualPanel1.class, "wzrdVisualPanel1.jLabel2.text")); // NOI18N
@@ -90,9 +103,9 @@ public final class wzrdVisualPanel1 extends JPanel {
                             .add(jLabel2)
                             .add(jLabel1))
                         .add(18, 18, 18)
-                        .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING, false)
-                            .add(testedTextField, 0, 0, Short.MAX_VALUE)
-                            .add(testsTextField)))
+                        .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+                            .add(testsTextField, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 332, Short.MAX_VALUE)
+                            .add(testedTextField, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 332, Short.MAX_VALUE)))
                     .add(layout.createSequentialGroup()
                         .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
                             .add(jLabel3)
@@ -100,9 +113,9 @@ public final class wzrdVisualPanel1 extends JPanel {
                             .add(jLabel4))
                         .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                         .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-                            .add(runtestsTextField, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 329, Short.MAX_VALUE)
-                            .add(arguementsTextField, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 329, Short.MAX_VALUE)
-                            .add(testingTextField, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 329, Short.MAX_VALUE))))
+                            .add(runtestsTextField, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 335, Short.MAX_VALUE)
+                            .add(arguementsTextField, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 335, Short.MAX_VALUE)
+                            .add(testingTextField, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 335, Short.MAX_VALUE))))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -131,6 +144,11 @@ public final class wzrdVisualPanel1 extends JPanel {
                 .addContainerGap(org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
+
+	private void formComponentHidden(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_formComponentHidden
+
+	}//GEN-LAST:event_formComponentHidden
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTextField arguementsTextField;
     private javax.swing.JTextField runtestsTextField;
