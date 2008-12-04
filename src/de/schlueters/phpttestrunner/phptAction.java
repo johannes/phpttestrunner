@@ -5,15 +5,11 @@ import de.schlueters.phpttestrunner.gui.startWizard.wzrdVisualPanel1;
 import de.schlueters.phpttestrunner.gui.startWizard.wzrdWizardPanel1;
 import de.schlueters.phpttestrunner.results.Result;
 import de.schlueters.phpttestrunner.results.fromhtmloutput.HTMLResult;
-import de.schlueters.phpttestrunner.results.Test;
 
 import de.schlueters.phpttestrunner.util.ExternalProcessRunner;
 import org.openide.util.HelpCtx;
 import org.openide.util.NbBundle;
 import org.openide.util.actions.CallableSystemAction;
-
-import org.openide.windows.Mode;
-import org.openide.windows.WindowManager;
 
 import org.openide.util.Task;
 import org.openide.util.RequestProcessor;
@@ -24,7 +20,7 @@ import org.openide.DialogDisplayer;
 import org.openide.WizardDescriptor;
 
 import java.io.File;
-import java.util.List;
+import org.openide.util.TaskListener;
 
 public final class phptAction extends CallableSystemAction {
 
@@ -60,11 +56,10 @@ public final class phptAction extends CallableSystemAction {
 			vpanel.getruntestsFileName(),
             vpanel.getArguements(),
             vpanel.getTestedBinaryFileName());
-        
+     
         Task task = new Task(runner);
-//        task.addTaskListener(new RunnerListener());
+//        task.addTaskListener(new RunnerListener(resultfile));
         RequestProcessor.getDefault().post(task);
-        
         
         task.waitFinished();
         
@@ -72,14 +67,7 @@ public final class phptAction extends CallableSystemAction {
             //Result res = new FailedResults("/tmp/phptresult.html");
 			//Result res = new HTMLResult(new File("/tmp/phptresult.html"));
             Result res = new HTMLResult(resultfile);
-            final List<Test> executedTests = res.getExecutedTests();
-
-            Mode myMode = WindowManager.getDefault().findMode ("output");
-            TestResultsTopComponent comp = (TestResultsTopComponent)WindowManager.getDefault().findTopComponent("TestResultsTopComponent");
-            myMode.dockInto(WindowManager.getDefault().findTopComponent("TestResultsTopComponent"));
-            comp.open();
-            comp.setVisible(true);
-            comp.setTests(executedTests);                
+			TestResultsTopComponent.showResults(res);
          } catch (Exception e) {
             e.printStackTrace();
             NotifyDescriptor ex_dlg = new NotifyDescriptor.Message(e, NotifyDescriptor.ERROR_MESSAGE);
@@ -106,22 +94,30 @@ public final class phptAction extends CallableSystemAction {
     protected boolean asynchronous() {
         return false;
     }
-    /*
-    class RunnerListener implements TaskListener{
+    
+    private class RunnerListener implements TaskListener {
+		private File resultfile;
+
+		public RunnerListener(File resultfile) {
+			this.resultfile = resultfile;
+		}
+
         public void taskFinished(Task task) {
-            try {
-                FailedResults res = new FailedResults("/tmp/result.txt");
-                res.getExecutedTests();
-                
-                Mode myMode = WindowManager.getDefault().findMode("bottomSlidingSide");
-                myMode.dockInto(WindowManager.getDefault().findTopComponent("TestResultsTopComponent"));
-                WindowManager.getDefault().findTopComponent("TestResultsTopComponent").open();
-                WindowManager.getDefault().findTopComponent("TestResultsTopComponent").setVisible(true);
-            } catch (Exception e) {
-            }
-        }
+			try {
+				//Result res = new FailedResults("/tmp/phptresult.html");
+				//Result res = new HTMLResult(new File("/tmp/phptresult.html"));
+				Result res = new HTMLResult(resultfile);
+				TestResultsTopComponent.showResults(res);
+			 } catch (Exception e) {
+				e.printStackTrace();
+				NotifyDescriptor ex_dlg = new NotifyDescriptor.Message(e, NotifyDescriptor.ERROR_MESSAGE);
+				DialogDisplayer.getDefault().notify(ex_dlg);
+			 } finally {
+				resultfile.delete();
+			 }
+		}
     }
-    */
+    
 
 	private class phptTestRunner implements Runnable {
         ProcessBuilder command;

@@ -5,6 +5,7 @@
 
 package de.schlueters.phpttestrunner.gui;
 
+import de.schlueters.phpttestrunner.results.Result;
 import java.io.Serializable;
 import java.util.logging.Logger;
 import org.openide.util.NbBundle;
@@ -26,6 +27,9 @@ import org.openide.cookies.EditorCookie;
 
 import de.schlueters.phpttestrunner.results.Test;
 import de.schlueters.phpttestrunner.results.TestResult;
+import org.openide.DialogDisplayer;
+import org.openide.NotifyDescriptor;
+import org.openide.windows.Mode;
 
 
 /**
@@ -46,6 +50,26 @@ public final class TestResultsTopComponent extends TopComponent {
         setToolTipText(NbBundle.getMessage(TestResultsTopComponent.class, "HINT_TestResultsTopComponent"));
 //        setIcon(Utilities.loadImage(ICON_PATH, true));
     }
+
+	public static void showResults(Result res)
+	{
+		try {
+				//Result res = new FailedResults("/tmp/phptresult.html");
+				//Result res = new HTMLResult(new File("/tmp/phptresult.html"));
+				final List<Test> executedTests = res.getExecutedTests();
+
+				Mode myMode = WindowManager.getDefault().findMode("output");
+				TestResultsTopComponent comp = (TestResultsTopComponent)WindowManager.getDefault().findTopComponent("TestResultsTopComponent");
+				myMode.dockInto(WindowManager.getDefault().findTopComponent("TestResultsTopComponent"));
+				comp.open();
+				comp.setVisible(true);
+				comp.setTests(executedTests);
+			 } catch (Exception e) {
+				e.printStackTrace();
+				NotifyDescriptor ex_dlg = new NotifyDescriptor.Message(e, NotifyDescriptor.ERROR_MESSAGE);
+				DialogDisplayer.getDefault().notify(ex_dlg);
+			 }
+	}
 
     /** This method is called from within the constructor to
      * initialize the form.
