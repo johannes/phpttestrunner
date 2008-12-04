@@ -1,10 +1,11 @@
 package de.schlueters.phpttestrunner;
 
 import de.schlueters.phpttestrunner.gui.TestResultsTopComponent;
+import de.schlueters.phpttestrunner.gui.startWizard.wzrdVisualPanel1;
+import de.schlueters.phpttestrunner.gui.startWizard.wzrdWizardPanel1;
 import de.schlueters.phpttestrunner.results.Result;
 import de.schlueters.phpttestrunner.results.fromhtmloutput.HTMLResult;
 import de.schlueters.phpttestrunner.results.Test;
-import de.schlueters.phpttestrunner.gui.startWizard.*;
 
 import de.schlueters.phpttestrunner.util.ExternalProcessRunner;
 import org.openide.util.HelpCtx;
