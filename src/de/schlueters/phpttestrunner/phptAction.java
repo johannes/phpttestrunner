@@ -74,7 +74,7 @@ public final class phptAction extends CallableSystemAction {
             Result res = new HTMLResult(resultfile);
             final List<Test> executedTests = res.getExecutedTests();
 
-            Mode myMode = WindowManager.getDefault().findMode("bottomSlidingSide");
+            Mode myMode = WindowManager.getDefault().findMode ("output");
             TestResultsTopComponent comp = (TestResultsTopComponent)WindowManager.getDefault().findTopComponent("TestResultsTopComponent");
             myMode.dockInto(WindowManager.getDefault().findTopComponent("TestResultsTopComponent"));
             comp.open();
