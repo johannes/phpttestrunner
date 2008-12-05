@@ -21,7 +21,7 @@ import java.io.File;
 import javax.swing.SwingWorker;
 
 public final class phptAction extends CallableSystemAction {
-	@Override
+    @Override
     public void performAction() {
         File resultfile = null;
         try {
@@ -58,7 +58,7 @@ public final class phptAction extends CallableSystemAction {
 		runner.execute();
     }
 
-	@Override
+    @Override
     public String getName() {
         return NbBundle.getMessage(phptAction.class, "CTL_StartWizard");
     }
@@ -68,7 +68,7 @@ public final class phptAction extends CallableSystemAction {
         return "de/schlueters/phpttestrunner/php.gif";
     }
 
-	@Override
+    @Override
     public HelpCtx getHelpCtx() {
         return HelpCtx.DEFAULT_HELP;
     }
@@ -79,52 +79,52 @@ public final class phptAction extends CallableSystemAction {
     }
     
     private class TestWorker extends SwingWorker {
-		private ProcessBuilder command;
-		private File resultfile;
-		private String testBinary;
-		private String tests;
-		private String runtests;
-		private String args;
-		private String testingBinary;
+        private ProcessBuilder command;
+        private File resultfile;
+        private String testBinary;
+        private String tests;
+        private String runtests;
+        private String args;
+        private String testingBinary;
 
-		public TestWorker(File resultfile, String testBinary, String tests, String runtests, String args, String testingBinary) {
-			this.resultfile = resultfile;
-			this.testBinary = testBinary;
-			this.tests = tests;
-			this.runtests = runtests;
-			this.args = args;
-			this.testingBinary = testBinary;
-		}
+        public TestWorker(File resultfile, String testBinary, String tests, String runtests, String args, String testingBinary) {
+            this.resultfile = resultfile;
+            this.testBinary = testBinary;
+            this.tests = tests;
+            this.runtests = runtests;
+            this.args = args;
+            this.testingBinary = testBinary;
+        }
 
-		@Override
-		public Object doInBackground() {
-			File testdir = new File(tests);
-			if (!testdir.isDirectory()) testdir = testdir.getParentFile();
+        @Override
+        public Object doInBackground() {
+            File testdir = new File(tests);
+            if (!testdir.isDirectory()) testdir = testdir.getParentFile();
 
             command = new ProcessBuilder(testingBinary, runtests, "--html", resultfile.getAbsolutePath(), /*args,*/ tests);
             command.environment().put("TEST_PHP_EXECUTABLE", testingBinary);
-			try {
-				ExternalProcessRunner.launchProcess("run-tests.php", command);
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
-			return null;
-		}
+            try {
+                ExternalProcessRunner.launchProcess("run-tests.php", command);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            return null;
+        }
 
-		@Override
+        @Override
         public void done() {
-			try {
-				//Result res = new FailedResults("/tmp/phptresult.html");
-				//Result res = new HTMLResult(new File("/tmp/phptresult.html"));
-				Result res = new HTMLResult(resultfile);
-				TestResultsTopComponent.showResults(res);
-			 } catch (Exception e) {
-				e.printStackTrace();
-				NotifyDescriptor ex_dlg = new NotifyDescriptor.Message(e, NotifyDescriptor.ERROR_MESSAGE);
-				DialogDisplayer.getDefault().notify(ex_dlg);
-			 } finally {
-				resultfile.delete();
-			 }
-		}
+            try {
+                //Result res = new FailedResults("/tmp/phptresult.html");
+                //Result res = new HTMLResult(new File("/tmp/phptresult.html"));
+                Result res = new HTMLResult(resultfile);
+                TestResultsTopComponent.showResults(res);
+            } catch (Exception e) {
+                e.printStackTrace();
+                NotifyDescriptor ex_dlg = new NotifyDescriptor.Message(e, NotifyDescriptor.ERROR_MESSAGE);
+                DialogDisplayer.getDefault().notify(ex_dlg);
+            } finally {
+                resultfile.delete();
+            }
+        }
     }
 }
