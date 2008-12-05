@@ -5,8 +5,12 @@
 
 package de.schlueters.phpttestrunner.gui.startWizard;
 
+import java.io.File;
 import java.util.prefs.Preferences;
+import javax.swing.JFileChooser;
 import javax.swing.JPanel;
+import javax.swing.JTextField;
+import javax.swing.filechooser.FileFilter;
 
 public final class wzrdVisualPanel1 extends JPanel {
 
@@ -64,6 +68,10 @@ public final class wzrdVisualPanel1 extends JPanel {
         runtestsTextField = new javax.swing.JTextField();
         arguementsTextField = new javax.swing.JTextField();
         testingTextField = new javax.swing.JTextField();
+        testedButton = new javax.swing.JButton();
+        testsButton = new javax.swing.JButton();
+        runtestsButton = new javax.swing.JButton();
+        testingButton = new javax.swing.JButton();
 
         addComponentListener(new java.awt.event.ComponentAdapter() {
             public void componentHidden(java.awt.event.ComponentEvent evt) {
@@ -76,8 +84,10 @@ public final class wzrdVisualPanel1 extends JPanel {
         org.openide.awt.Mnemonics.setLocalizedText(jLabel2, org.openide.util.NbBundle.getMessage(wzrdVisualPanel1.class, "wzrdVisualPanel1.jLabel2.text")); // NOI18N
 
         testsTextField.setText(org.openide.util.NbBundle.getMessage(wzrdVisualPanel1.class, "wzrdVisualPanel1.testsTextField.text")); // NOI18N
+        testsTextField.setToolTipText(org.openide.util.NbBundle.getMessage(wzrdVisualPanel1.class, "wzrdVisualPanel1.testsTextField.toolTipText")); // NOI18N
 
         testedTextField.setText(org.openide.util.NbBundle.getMessage(wzrdVisualPanel1.class, "wzrdVisualPanel1.testedTextField.text")); // NOI18N
+        testedTextField.setToolTipText(org.openide.util.NbBundle.getMessage(wzrdVisualPanel1.class, "wzrdVisualPanel1.testedTextField.toolTipText")); // NOI18N
 
         org.openide.awt.Mnemonics.setLocalizedText(jLabel3, org.openide.util.NbBundle.getMessage(wzrdVisualPanel1.class, "wzrdVisualPanel1.jLabel3.text")); // NOI18N
 
@@ -86,10 +96,41 @@ public final class wzrdVisualPanel1 extends JPanel {
         org.openide.awt.Mnemonics.setLocalizedText(jLabel5, org.openide.util.NbBundle.getMessage(wzrdVisualPanel1.class, "wzrdVisualPanel1.jLabel5.text")); // NOI18N
 
         runtestsTextField.setText(org.openide.util.NbBundle.getMessage(wzrdVisualPanel1.class, "wzrdVisualPanel1.runtestsTextField.text")); // NOI18N
+        runtestsTextField.setToolTipText(org.openide.util.NbBundle.getMessage(wzrdVisualPanel1.class, "wzrdVisualPanel1.runtestsTextField.toolTipText")); // NOI18N
 
         arguementsTextField.setText(org.openide.util.NbBundle.getMessage(wzrdVisualPanel1.class, "wzrdVisualPanel1.arguementsTextField.text")); // NOI18N
+        arguementsTextField.setToolTipText(org.openide.util.NbBundle.getMessage(wzrdVisualPanel1.class, "wzrdVisualPanel1.arguementsTextField.toolTipText")); // NOI18N
 
         testingTextField.setText(org.openide.util.NbBundle.getMessage(wzrdVisualPanel1.class, "wzrdVisualPanel1.testingTextField.text")); // NOI18N
+        testingTextField.setToolTipText(org.openide.util.NbBundle.getMessage(wzrdVisualPanel1.class, "wzrdVisualPanel1.testingTextField.toolTipText")); // NOI18N
+
+        org.openide.awt.Mnemonics.setLocalizedText(testedButton, org.openide.util.NbBundle.getMessage(wzrdVisualPanel1.class, "wzrdVisualPanel1.testedButton.text")); // NOI18N
+        testedButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                testedButtonActionPerformed(evt);
+            }
+        });
+
+        org.openide.awt.Mnemonics.setLocalizedText(testsButton, org.openide.util.NbBundle.getMessage(wzrdVisualPanel1.class, "wzrdVisualPanel1.testsButton.text")); // NOI18N
+        testsButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                testsButtonActionPerformed(evt);
+            }
+        });
+
+        org.openide.awt.Mnemonics.setLocalizedText(runtestsButton, org.openide.util.NbBundle.getMessage(wzrdVisualPanel1.class, "wzrdVisualPanel1.runtestsButton.text")); // NOI18N
+        runtestsButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                runtestsButtonActionPerformed(evt);
+            }
+        });
+
+        org.openide.awt.Mnemonics.setLocalizedText(testingButton, org.openide.util.NbBundle.getMessage(wzrdVisualPanel1.class, "wzrdVisualPanel1.testingButton.text")); // NOI18N
+        testingButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                testingButtonActionPerformed(evt);
+            }
+        });
 
         org.jdesktop.layout.GroupLayout layout = new org.jdesktop.layout.GroupLayout(this);
         this.setLayout(layout);
@@ -104,8 +145,14 @@ public final class wzrdVisualPanel1 extends JPanel {
                             .add(jLabel1))
                         .add(18, 18, 18)
                         .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-                            .add(testsTextField, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 332, Short.MAX_VALUE)
-                            .add(testedTextField, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 332, Short.MAX_VALUE)))
+                            .add(layout.createSequentialGroup()
+                                .add(testsTextField, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 302, Short.MAX_VALUE)
+                                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                                .add(testsButton))
+                            .add(layout.createSequentialGroup()
+                                .add(testedTextField, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 302, Short.MAX_VALUE)
+                                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                                .add(testedButton))))
                     .add(layout.createSequentialGroup()
                         .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
                             .add(jLabel3)
@@ -113,9 +160,15 @@ public final class wzrdVisualPanel1 extends JPanel {
                             .add(jLabel4))
                         .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                         .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-                            .add(runtestsTextField, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 335, Short.MAX_VALUE)
+                            .add(layout.createSequentialGroup()
+                                .add(runtestsTextField, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 305, Short.MAX_VALUE)
+                                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                                .add(runtestsButton))
                             .add(arguementsTextField, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 335, Short.MAX_VALUE)
-                            .add(testingTextField, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 335, Short.MAX_VALUE))))
+                            .add(layout.createSequentialGroup()
+                                .add(testingTextField, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 305, Short.MAX_VALUE)
+                                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                                .add(testingButton)))))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -124,15 +177,18 @@ public final class wzrdVisualPanel1 extends JPanel {
                 .addContainerGap()
                 .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
                     .add(testedTextField, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                    .add(jLabel1))
+                    .add(jLabel1)
+                    .add(testedButton))
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                 .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
                     .add(jLabel2)
-                    .add(testsTextField, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+                    .add(testsTextField, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                    .add(testsButton))
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                 .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
                     .add(jLabel3)
-                    .add(runtestsTextField, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+                    .add(runtestsTextField, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                    .add(runtestsButton))
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                 .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
                     .add(arguementsTextField, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
@@ -140,7 +196,8 @@ public final class wzrdVisualPanel1 extends JPanel {
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                 .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
                     .add(jLabel5)
-                    .add(testingTextField, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+                    .add(testingTextField, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                    .add(testingButton))
                 .addContainerGap(org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
@@ -149,12 +206,62 @@ public final class wzrdVisualPanel1 extends JPanel {
 
 	}//GEN-LAST:event_formComponentHidden
 
+	private void showFileDlg(String title, JTextField field, FileFilter filter) {
+		JFileChooser chooser = new JFileChooser();
+		chooser.setDialogTitle(title);
+		chooser.setFileFilter(filter);
+		chooser.setSelectedFile(new File(field.getText()));
+		chooser.setMultiSelectionEnabled(false);
+		if (chooser.showOpenDialog(this) == JFileChooser.APPROVE_OPTION) {
+			field.setText(chooser.getSelectedFile().getAbsolutePath());
+		}
+	}
+
+	private void testedButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_testedButtonActionPerformed
+		showFileDlg("Choose PHP Binary", testedTextField, new ExecuteableFilesOnlyFilter());
+}//GEN-LAST:event_testedButtonActionPerformed
+
+	private void testsButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_testsButtonActionPerformed
+		JFileChooser chooser = new JFileChooser();
+		chooser.setDialogTitle("Select tests");
+		chooser.setSelectedFile(new File(testsTextField.getText()));
+		chooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
+		chooser.setAcceptAllFileFilterUsed(false);
+		if (chooser.showOpenDialog(this) == JFileChooser.APPROVE_OPTION) {
+			testsTextField.setText(chooser.getSelectedFile().getAbsolutePath());
+		}
+}//GEN-LAST:event_testsButtonActionPerformed
+
+	private void runtestsButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_runtestsButtonActionPerformed
+		showFileDlg("Choose run-tests.php script", runtestsTextField, new ExecuteableFilesOnlyFilter());
+	}//GEN-LAST:event_runtestsButtonActionPerformed
+
+	private void testingButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_testingButtonActionPerformed
+		showFileDlg("Choose PHP Binary", testingTextField, new ExecuteableFilesOnlyFilter());
+}//GEN-LAST:event_testingButtonActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTextField arguementsTextField;
+    private javax.swing.JButton runtestsButton;
     private javax.swing.JTextField runtestsTextField;
+    private javax.swing.JButton testedButton;
     private javax.swing.JTextField testedTextField;
+    private javax.swing.JButton testingButton;
     private javax.swing.JTextField testingTextField;
+    private javax.swing.JButton testsButton;
     private javax.swing.JTextField testsTextField;
     // End of variables declaration//GEN-END:variables
+
+    private class ExecuteableFilesOnlyFilter extends FileFilter {
+		@Override
+		public boolean accept(File f) {
+			return f.canExecute();
+		}
+
+		@Override
+		public String getDescription() {
+			return "Executeable Files";
+		}
+	}
 }
 
