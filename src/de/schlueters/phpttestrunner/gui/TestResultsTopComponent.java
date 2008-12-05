@@ -82,11 +82,12 @@ public final class TestResultsTopComponent extends TopComponent {
 
         jScrollPane1 = new javax.swing.JScrollPane();
         resultList = new javax.swing.JList();
-        jToolBar1 = new javax.swing.JToolBar();
+        javax.swing.JToolBar jToolBar1 = new javax.swing.JToolBar();
         passBtn = new javax.swing.JToggleButton();
         skipBtn = new javax.swing.JToggleButton();
         failBtn = new javax.swing.JToggleButton();
         xfailBtn = new javax.swing.JToggleButton();
+        summaryLabel = new javax.swing.JLabel();
 
         resultList.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         resultList.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -147,6 +148,9 @@ public final class TestResultsTopComponent extends TopComponent {
         });
         jToolBar1.add(xfailBtn);
 
+        org.openide.awt.Mnemonics.setLocalizedText(summaryLabel, org.openide.util.NbBundle.getMessage(TestResultsTopComponent.class, "TestResultsTopComponent.summaryLabel.text")); // NOI18N
+        jToolBar1.add(summaryLabel);
+
         org.jdesktop.layout.GroupLayout layout = new org.jdesktop.layout.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -198,10 +202,10 @@ private void toggleBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIR
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JToggleButton failBtn;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JToolBar jToolBar1;
     private javax.swing.JToggleButton passBtn;
     private javax.swing.JList resultList;
     private javax.swing.JToggleButton skipBtn;
+    private javax.swing.JLabel summaryLabel;
     private javax.swing.JToggleButton xfailBtn;
     // End of variables declaration//GEN-END:variables
     /**
@@ -283,13 +287,27 @@ private void toggleBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIR
         resultList.setCellRenderer(new TestCellRenderer());
         resultList.setModel(new javax.swing.AbstractListModel() {
             private List<Test> names = showTests;
-            public int getSize() { return names.size(); }
-            public Object getElementAt(int i) { return names.get(i); }
+            @Override public int getSize() { return names.size(); }
+            @Override public Object getElementAt(int i) { return names.get(i); }
         });
     }
     
     public void setTests(List<Test> tests) {
         this.tests = tests;
+
+		int pass = 0, skip = 0, fail = 0, xfail = 0;
+
+		for(Test t : tests) {
+			switch (t.getResult()) {
+				case PASS:  pass++;  break;
+				case SKIP:  skip++;  break;
+				case FAIL:  fail++;  break;
+				case XFAIL: xfail++; break;
+			}
+		}
+
+		summaryLabel.setText("("+pass+" PASS, "+skip+" SKIP, "+fail+" FAIL, "+xfail+ " XFAIL)");
+
         displayResults();
     }
     
@@ -303,7 +321,8 @@ private void toggleBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIR
     }
     
     final private class TestCellRenderer extends JLabel implements ListCellRenderer {
-        public Component getListCellRendererComponent(
+        @Override
+		public Component getListCellRendererComponent(
             JList list,
             Object value,
             int index,
