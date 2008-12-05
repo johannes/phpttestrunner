@@ -21,7 +21,7 @@ import java.io.File;
 import javax.swing.SwingWorker;
 
 public final class phptAction extends CallableSystemAction {
-
+	@Override
     public void performAction() {
         File resultfile = null;
         try {
@@ -57,7 +57,8 @@ public final class phptAction extends CallableSystemAction {
 
 		runner.execute();
     }
-    
+
+	@Override
     public String getName() {
         return NbBundle.getMessage(phptAction.class, "CTL_StartWizard");
     }
@@ -67,6 +68,7 @@ public final class phptAction extends CallableSystemAction {
         return "de/schlueters/phpttestrunner/php.gif";
     }
 
+	@Override
     public HelpCtx getHelpCtx() {
         return HelpCtx.DEFAULT_HELP;
     }
@@ -94,6 +96,7 @@ public final class phptAction extends CallableSystemAction {
 			this.testingBinary = testBinary;
 		}
 
+		@Override
 		public Object doInBackground() {
 			File testdir = new File(tests);
 			if (!testdir.isDirectory()) testdir = testdir.getParentFile();
