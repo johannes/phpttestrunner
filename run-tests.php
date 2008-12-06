@@ -1441,6 +1441,7 @@ TEST $file
 	}
 
 	if (@count($section_text['REDIRECTTEST']) == 1) {
+return "SKIP";
 		$test_files = array();
 
 		$IN_REDIRECT = eval($section_text['REDIRECTTEST']);
@@ -2107,7 +2108,7 @@ function get_summary($show_ext_summary, $show_html)
 	$summary = '';
 
 	if ($show_html) {
-		$summary .= "<pre>\n";
+		$summary .= "<pre><![CDATA[\n";
 	}
 	
 	if ($show_ext_summary) {
@@ -2201,7 +2202,7 @@ LEAKED TEST SUMMARY
 		$summary .= $failed_test_summary;
 	}
 
-	if ($show_html) $summary .= "</pre></div>";
+	if ($show_html) $summary .= "]]></pre></div>";
 
 	return $summary;
 }
