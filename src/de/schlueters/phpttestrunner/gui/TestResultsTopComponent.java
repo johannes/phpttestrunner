@@ -213,10 +213,6 @@ public final class TestResultsTopComponent extends TopComponent {
 		} catch (Exception e) {
 			e.getMessage();
 		}
-
-		if (test.getResult() != TestResult.FAIL && test.getResult() != TestResult.XFAIL) {
-			return;
-		}
 	}
 
 private void test(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_test
