@@ -11,7 +11,6 @@ import java.util.logging.Logger;
 import org.openide.util.NbBundle;
 import org.openide.windows.TopComponent;
 import org.openide.windows.WindowManager;
-//import org.openide.util.Utilities;
 
 import java.util.List;
 import java.util.LinkedList;
@@ -80,6 +79,9 @@ public final class TestResultsTopComponent extends TopComponent {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        listPopupMenu = new javax.swing.JPopupMenu();
+        showphptMenuItem = new javax.swing.JMenuItem();
+        openDiffMenuItem = new javax.swing.JMenuItem();
         jScrollPane1 = new javax.swing.JScrollPane();
         resultList = new javax.swing.JList();
         javax.swing.JToolBar jToolBar1 = new javax.swing.JToolBar();
@@ -89,10 +91,29 @@ public final class TestResultsTopComponent extends TopComponent {
         xfailBtn = new javax.swing.JToggleButton();
         summaryLabel = new javax.swing.JLabel();
 
+        org.openide.awt.Mnemonics.setLocalizedText(showphptMenuItem, org.openide.util.NbBundle.getMessage(TestResultsTopComponent.class, "TestResultsTopComponent.showphptMenuItem.text")); // NOI18N
+        showphptMenuItem.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                showphptMenuItemActionPerformed(evt);
+            }
+        });
+        listPopupMenu.add(showphptMenuItem);
+
+        org.openide.awt.Mnemonics.setLocalizedText(openDiffMenuItem, org.openide.util.NbBundle.getMessage(TestResultsTopComponent.class, "TestResultsTopComponent.openDiffMenuItem.text")); // NOI18N
+        openDiffMenuItem.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                openDiffMenuItemActionPerformed(evt);
+            }
+        });
+        listPopupMenu.add(openDiffMenuItem);
+
         resultList.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         resultList.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 test(evt);
+            }
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                resultListMousePressed(evt);
             }
         });
         jScrollPane1.setViewportView(resultList);
@@ -167,43 +188,87 @@ public final class TestResultsTopComponent extends TopComponent {
         );
     }// </editor-fold>//GEN-END:initComponents
 
+	private void showDiffOfSelectedTest() {
+		Object selected = resultList.getSelectedValue();
+		assert(selected instanceof Test);
+		TestResult result = ((Test)selected).getResult();
+		if (result == TestResult.FAIL || result == TestResult.XFAIL) {
+			FailedTestDisplayerComponent.diff((Test)selected);
+		}
+	}
+
+	private void showphptEditorOfSelectedTest() {
+		Object selected = resultList.getSelectedValue();
+		assert(selected instanceof Test);
+		Test test = (Test)selected;
+
+		try {
+			java.io.File f = new java.io.File(test.getFilename());
+			org.openide.filesystems.FileObject fo = org.openide.filesystems.FileUtil.toFileObject(f);
+			DataObject d = DataObject.find(fo);
+			EditorCookie ec;
+			ec= (EditorCookie)d.getCookie(EditorCookie.class);
+			ec.open();
+			javax.swing.text.StyledDocument doc = ec.openDocument();
+		} catch (Exception e) {
+			e.getMessage();
+		}
+
+		if (test.getResult() != TestResult.FAIL && test.getResult() != TestResult.XFAIL) {
+			return;
+		}
+	}
 
 private void test(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_test
-    Object selected = resultList.getSelectedValue();
-    if (!(selected instanceof Test)) {
-        return;
-    }
-    Test test = (Test)selected;
-    
-    try {
-        java.io.File f = new java.io.File(test.getFilename());
-        org.openide.filesystems.FileObject fo = org.openide.filesystems.FileUtil.toFileObject(f);
-        DataObject d = DataObject.find(fo);
-        EditorCookie ec;
-        ec= (EditorCookie)d.getCookie(EditorCookie.class);
-        ec.open();
-        javax.swing.text.StyledDocument doc = ec.openDocument();
-    } catch (Exception e) {
-        e.getMessage();
-    }
-    
-    if (test.getResult() != TestResult.FAIL && test.getResult() != TestResult.XFAIL) {
-        return;
-    }
-    
-    FailedTestDisplayerComponent.diff(test);
+	if (evt.getClickCount() == 2) {
+		showphptEditorOfSelectedTest();
+		showDiffOfSelectedTest();
+	}
 }//GEN-LAST:event_test
 
 private void toggleBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_toggleBtnActionPerformed
     displayResults();
 }//GEN-LAST:event_toggleBtnActionPerformed
 
+private void resultListMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_resultListMousePressed
+	if (evt.getButton() == java.awt.event.MouseEvent.BUTTON3) {
+		JList list = (JList)evt.getComponent();
+		int idx = list.locationToIndex(evt.getPoint());
+		list.setSelectedIndex(idx);
+
+		if (idx > -1) {
+			Object selected = resultList.getSelectedValue();
+			assert(selected instanceof Test);
+
+			Test test = (Test)resultList.getSelectedValue();
+			if (test.getResult() != TestResult.FAIL && test.getResult() != TestResult.XFAIL) {
+				openDiffMenuItem.setEnabled(false);
+			} else {
+				openDiffMenuItem.setEnabled(true);
+			}
+
+			listPopupMenu.show(this, evt.getX(), evt.getY());
+		}
+	}
+}//GEN-LAST:event_resultListMousePressed
+
+private void openDiffMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_openDiffMenuItemActionPerformed
+	showDiffOfSelectedTest();
+}//GEN-LAST:event_openDiffMenuItemActionPerformed
+
+private void showphptMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_showphptMenuItemActionPerformed
+	showphptEditorOfSelectedTest();
+}//GEN-LAST:event_showphptMenuItemActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JToggleButton failBtn;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JPopupMenu listPopupMenu;
+    private javax.swing.JMenuItem openDiffMenuItem;
     private javax.swing.JToggleButton passBtn;
     private javax.swing.JList resultList;
+    private javax.swing.JMenuItem showphptMenuItem;
     private javax.swing.JToggleButton skipBtn;
     private javax.swing.JLabel summaryLabel;
     private javax.swing.JToggleButton xfailBtn;
