@@ -11,6 +11,7 @@ import javax.swing.JFileChooser;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.filechooser.FileFilter;
+import org.openide.modules.InstalledFileLocator;
 
 public final class wzrdVisualPanel1 extends JPanel {
 
@@ -31,7 +32,12 @@ public final class wzrdVisualPanel1 extends JPanel {
     }
 
 	public String getruntestsFileName() {
-		return runtestsTextField.getText();
+		if (runtestBundledRadioButton.isSelected()) {
+			File f = InstalledFileLocator.getDefault().locate("run-tests.php", null, false);
+			return f.getAbsolutePath();
+		} else {
+			return runtestsTextField.getText();
+		}
 	}
 
 	public String getTestedBinaryFileName() {
@@ -58,6 +64,7 @@ public final class wzrdVisualPanel1 extends JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        buttonGroup1 = new javax.swing.ButtonGroup();
         javax.swing.JLabel jLabel1 = new javax.swing.JLabel();
         javax.swing.JLabel jLabel2 = new javax.swing.JLabel();
         testsTextField = new javax.swing.JTextField();
@@ -72,6 +79,8 @@ public final class wzrdVisualPanel1 extends JPanel {
         testsButton = new javax.swing.JButton();
         runtestsButton = new javax.swing.JButton();
         testingButton = new javax.swing.JButton();
+        runtestBundledRadioButton = new javax.swing.JRadioButton();
+        runtestsCustomRadioButton = new javax.swing.JRadioButton();
 
         addComponentListener(new java.awt.event.ComponentAdapter() {
             public void componentHidden(java.awt.event.ComponentEvent evt) {
@@ -132,6 +141,18 @@ public final class wzrdVisualPanel1 extends JPanel {
             }
         });
 
+        buttonGroup1.add(runtestBundledRadioButton);
+        runtestBundledRadioButton.setSelected(true);
+        org.openide.awt.Mnemonics.setLocalizedText(runtestBundledRadioButton, org.openide.util.NbBundle.getMessage(wzrdVisualPanel1.class, "wzrdVisualPanel1.runtestBundledRadioButton.text")); // NOI18N
+
+        buttonGroup1.add(runtestsCustomRadioButton);
+        org.openide.awt.Mnemonics.setLocalizedText(runtestsCustomRadioButton, org.openide.util.NbBundle.getMessage(wzrdVisualPanel1.class, "wzrdVisualPanel1.runtestsCustomRadioButton.text")); // NOI18N
+        runtestsCustomRadioButton.addChangeListener(new javax.swing.event.ChangeListener() {
+            public void stateChanged(javax.swing.event.ChangeEvent evt) {
+                runtestsCustomRadioButtonStateChanged(evt);
+            }
+        });
+
         org.jdesktop.layout.GroupLayout layout = new org.jdesktop.layout.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -154,16 +175,22 @@ public final class wzrdVisualPanel1 extends JPanel {
                                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                                 .add(testedButton))))
                     .add(layout.createSequentialGroup()
+                        .add(jLabel3)
+                        .add(18, 18, 18)
                         .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-                            .add(jLabel3)
+                            .add(layout.createSequentialGroup()
+                                .add(runtestsCustomRadioButton)
+                                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                                .add(runtestsTextField, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 276, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                                .add(runtestsButton))
+                            .add(runtestBundledRadioButton)))
+                    .add(org.jdesktop.layout.GroupLayout.TRAILING, layout.createSequentialGroup()
+                        .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
                             .add(jLabel5)
                             .add(jLabel4))
                         .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                         .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-                            .add(layout.createSequentialGroup()
-                                .add(runtestsTextField, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 305, Short.MAX_VALUE)
-                                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                                .add(runtestsButton))
                             .add(arguementsTextField, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 335, Short.MAX_VALUE)
                             .add(layout.createSequentialGroup()
                                 .add(testingTextField, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 305, Short.MAX_VALUE)
@@ -187,8 +214,13 @@ public final class wzrdVisualPanel1 extends JPanel {
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                 .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
                     .add(jLabel3)
-                    .add(runtestsTextField, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                    .add(runtestsButton))
+                    .add(runtestBundledRadioButton))
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+                    .add(runtestsCustomRadioButton)
+                    .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
+                        .add(runtestsTextField, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                        .add(runtestsButton)))
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                 .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
                     .add(arguementsTextField, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
@@ -240,9 +272,18 @@ public final class wzrdVisualPanel1 extends JPanel {
 		showFileDlg("Choose PHP Binary", testingTextField, new ExecuteableFilesOnlyFilter());
 }//GEN-LAST:event_testingButtonActionPerformed
 
+	private void runtestsCustomRadioButtonStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_runtestsCustomRadioButtonStateChanged
+		Boolean enabled = runtestsCustomRadioButton.isSelected();
+		runtestsTextField.setEnabled(enabled);
+		runtestsButton.setEnabled(enabled);
+	}//GEN-LAST:event_runtestsCustomRadioButtonStateChanged
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTextField arguementsTextField;
+    private javax.swing.ButtonGroup buttonGroup1;
+    private javax.swing.JRadioButton runtestBundledRadioButton;
     private javax.swing.JButton runtestsButton;
+    private javax.swing.JRadioButton runtestsCustomRadioButton;
     private javax.swing.JTextField runtestsTextField;
     private javax.swing.JButton testedButton;
     private javax.swing.JTextField testedTextField;

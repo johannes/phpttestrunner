@@ -28,6 +28,7 @@ import de.schlueters.phpttestrunner.results.Test;
 import de.schlueters.phpttestrunner.results.TestResult;
 import org.openide.DialogDisplayer;
 import org.openide.NotifyDescriptor;
+import org.openide.modules.InstalledFileLocator;
 import org.openide.util.ImageUtilities;
 import org.openide.windows.Mode;
 
@@ -377,6 +378,7 @@ private void showphptMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//
         private static final long serialVersionUID = 1L;
 
         public Object readResolve() {
+			InstalledFileLocator.getDefault().locate("run-tests.php", "", false);
             return TestResultsTopComponent.getDefault();
         }
     }
