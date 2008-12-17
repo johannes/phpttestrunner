@@ -7,7 +7,6 @@ package de.schlueters.phpttestrunner.gui.startWizard;
 
 import de.schlueters.phpttestrunner.phptAction;
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -16,8 +15,6 @@ import javax.swing.JFileChooser;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.filechooser.FileFilter;
-import org.openide.modules.InstalledFileLocator;
-import org.openide.util.Exceptions;
 
 public final class wzrdVisualPanel1 extends JPanel {
     private static File myphpt = null;
