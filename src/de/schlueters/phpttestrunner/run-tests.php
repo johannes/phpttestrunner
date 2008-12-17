@@ -24,7 +24,7 @@
    +----------------------------------------------------------------------+
  */
 
-/* $Id: run-tests.php,v 1.226.2.37.2.35.2.52 2008/11/06 03:09:41 scottmac Exp $ */
+/* $Id: run-tests.php,v 1.226.2.37.2.35.2.56 2008/12/11 02:37:36 lstrojny Exp $ */
 
 /* Sanity check to ensure that pcre extension needed by this script is available.
  * In the event it is not, print a nice error message indicating that this script will
@@ -57,6 +57,11 @@ if (!function_exists('proc_open')) {
 
 NO_PROC_OPEN_ERROR;
 exit;
+}
+
+// __DIR__ is available from 5.3.0
+if (PHP_VERSION_ID < 50300) {
+	define('__DIR__', realpath(dirname(__FILE__)));
 }
 
 // If timezone is not set, use UTC.
@@ -612,7 +617,7 @@ if (isset($argc) && $argc > 1) {
 					$html_output = is_resource($html_file);
 					break;
 				case '--version':
-					echo '$Revision: 1.226.2.37.2.35.2.52 $' . "\n";
+					echo '$Revision: 1.226.2.37.2.35.2.56 $' . "\n";
 					exit(1);
 
 				default:
@@ -1003,11 +1008,16 @@ function system_with_timeout($commandline, $env = null, $stdin = null)
 
 	$data = '';
 
+	$bin_env = array();
+	foreach((array)$env as $key => $value) {
+		$bin_env[(binary)$key] = (binary)$value;
+	}
+
 	$proc = proc_open($commandline, array(
 		0 => array('pipe', 'r'),
 		1 => array('pipe', 'w'),
 		2 => array('pipe', 'w')
-		), $pipes, $cwd, $env, array('suppress_errors' => true, 'binary_pipes' => true));
+		), $pipes, $cwd, $bin_env, array('suppress_errors' => true, 'binary_pipes' => true));
 
 	if (!$proc) {
 		return false;
@@ -1730,6 +1740,11 @@ COMMAND $cmd
 
 		if (isset($section_text['EXPECTF'])) {
 			$wanted_re = preg_quote($wanted_re, '/');
+			$wanted_re = str_replace(
+				array('%binary_string_optional%'),
+				version_compare(PHP_VERSION, '6.0.0-dev') == -1 ? 'string' : 'binary string',
+				$wanted_re
+			);
 			$wanted_re = str_replace(
 				array('%unicode_string_optional%'),
 				version_compare(PHP_VERSION, '6.0.0-dev') == -1 ? 'string' : 'Unicode string',
