@@ -123,6 +123,7 @@ public final class wzrdVisualPanel1 extends JPanel {
 
         runtestsTextField.setText(org.openide.util.NbBundle.getMessage(wzrdVisualPanel1.class, "wzrdVisualPanel1.runtestsTextField.text")); // NOI18N
         runtestsTextField.setToolTipText(org.openide.util.NbBundle.getMessage(wzrdVisualPanel1.class, "wzrdVisualPanel1.runtestsTextField.toolTipText")); // NOI18N
+        runtestsTextField.setEnabled(false);
 
         arguementsTextField.setText(org.openide.util.NbBundle.getMessage(wzrdVisualPanel1.class, "wzrdVisualPanel1.arguementsTextField.text")); // NOI18N
         arguementsTextField.setToolTipText(org.openide.util.NbBundle.getMessage(wzrdVisualPanel1.class, "wzrdVisualPanel1.arguementsTextField.toolTipText")); // NOI18N
@@ -145,6 +146,8 @@ public final class wzrdVisualPanel1 extends JPanel {
         });
 
         org.openide.awt.Mnemonics.setLocalizedText(runtestsButton, org.openide.util.NbBundle.getMessage(wzrdVisualPanel1.class, "wzrdVisualPanel1.runtestsButton.text")); // NOI18N
+        runtestsButton.setEnabled(false);
+        runtestsButton.setFocusPainted(false);
         runtestsButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 runtestsButtonActionPerformed(evt);
@@ -184,11 +187,11 @@ public final class wzrdVisualPanel1 extends JPanel {
                         .add(18, 18, 18)
                         .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
                             .add(layout.createSequentialGroup()
-                                .add(testsTextField, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 302, Short.MAX_VALUE)
+                                .add(testsTextField, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 306, Short.MAX_VALUE)
                                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                                 .add(testsButton))
                             .add(layout.createSequentialGroup()
-                                .add(testedTextField, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 302, Short.MAX_VALUE)
+                                .add(testedTextField, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 306, Short.MAX_VALUE)
                                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                                 .add(testedButton))))
                     .add(layout.createSequentialGroup()
@@ -210,7 +213,7 @@ public final class wzrdVisualPanel1 extends JPanel {
                         .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
                             .add(arguementsTextField, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 335, Short.MAX_VALUE)
                             .add(layout.createSequentialGroup()
-                                .add(testingTextField, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 305, Short.MAX_VALUE)
+                                .add(testingTextField, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 309, Short.MAX_VALUE)
                                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                                 .add(testingButton)))))
                 .addContainerGap())
