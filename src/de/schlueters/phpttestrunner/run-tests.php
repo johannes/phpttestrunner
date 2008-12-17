@@ -2271,7 +2271,7 @@ function show_test($test_idx, $shortname)
 {
 	global $test_cnt;
 
-	echo "TEST $test_idx/$test_cnt [$shortname]\r";
+	echo "TEST $test_idx/$test_cnt [$shortname]\n";
 	flush();
 }
 
