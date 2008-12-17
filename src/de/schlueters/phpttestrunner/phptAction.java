@@ -54,6 +54,7 @@ public final class phptAction extends CallableSystemAction {
         File resultfile = null;
         try {
             resultfile = File.createTempFile("phptresult.", ".html");
+            resultfile.deleteOnExit();
         } catch (Exception e) {
             NotifyDescriptor ex_dlg = new NotifyDescriptor.Message(e.toString()+" Couldn't create temp file!", NotifyDescriptor.ERROR_MESSAGE);
             DialogDisplayer.getDefault().notify(ex_dlg);
