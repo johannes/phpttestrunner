@@ -280,27 +280,30 @@ public final class wzrdVisualPanel1 extends JPanel {
 
 	}//GEN-LAST:event_formComponentHidden
 
-	private void showFileDlg(String title, JTextField field, FileFilter filter) {
-		JFileChooser chooser = new JFileChooser();
-		chooser.setDialogTitle(title);
-		chooser.setFileFilter(filter);
-		chooser.setSelectedFile(new File(field.getText()));
-		chooser.setMultiSelectionEnabled(false);
-		if (chooser.showOpenDialog(this) == JFileChooser.APPROVE_OPTION) {
-			field.setText(chooser.getSelectedFile().getAbsolutePath());
-		}
-	}
+    private void showFileDlg(String title, JTextField field, FileFilter filter) {
+        JFileChooser chooser = new JFileChooser();
+        chooser.setDialogTitle(title);
+        chooser.setFileFilter(filter);
+        chooser.setSelectedFile(new File(field.getText()));
+        chooser.setMultiSelectionEnabled(false);
+        if (chooser.showOpenDialog(this) == JFileChooser.APPROVE_OPTION) {
+            field.setText(chooser.getSelectedFile().getAbsolutePath());
+        }
+    }
 
 	private void testedButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_testedButtonActionPerformed
-		showFileDlg("Choose PHP Binary", testedTextField, new ExecuteableFilesOnlyFilter());
+        showFileDlg("Choose PHP Binary", testedTextField, new ExecuteableFilesOnlyFilter());
+        if (testingTextField.getText().equals("")) {
+            testingTextField.setText(testedTextField.getText());
+        }
 }//GEN-LAST:event_testedButtonActionPerformed
 
 	private void testsButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_testsButtonActionPerformed
-		JFileChooser chooser = new JFileChooser();
-		chooser.setDialogTitle("Select tests");
-		chooser.setSelectedFile(new File(testsTextField.getText()));
-		chooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
-		chooser.setAcceptAllFileFilterUsed(false);
+        JFileChooser chooser = new JFileChooser();
+        chooser.setDialogTitle("Select tests");
+        chooser.setSelectedFile(new File(testsTextField.getText()));
+        chooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
+        chooser.setAcceptAllFileFilterUsed(false);
 		if (chooser.showOpenDialog(this) == JFileChooser.APPROVE_OPTION) {
 			testsTextField.setText(chooser.getSelectedFile().getAbsolutePath());
 		}
