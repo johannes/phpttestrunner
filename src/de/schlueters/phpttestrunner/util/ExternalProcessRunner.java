@@ -73,6 +73,7 @@ class OutHandler implements Runnable {
         this.writer = writer;
     }
 
+    @Override
     public void run() {
         while (true) {
             try {
@@ -80,6 +81,7 @@ class OutHandler implements Runnable {
                     try {
                         Thread.currentThread().sleep(200);
                     } catch (InterruptedException e) {
+                        e.printStackTrace();
                         close();
                         return;
                     }
