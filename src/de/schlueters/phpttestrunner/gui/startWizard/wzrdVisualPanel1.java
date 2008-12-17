@@ -201,7 +201,7 @@ public final class wzrdVisualPanel1 extends JPanel {
                             .add(layout.createSequentialGroup()
                                 .add(runtestsCustomRadioButton)
                                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                                .add(runtestsTextField, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 276, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                                .add(runtestsTextField, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 285, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                                 .add(runtestsButton))
                             .add(runtestBundledRadioButton)))

@@ -52,7 +52,7 @@
                           <Group type="102" alignment="0" attributes="0">
                               <Component id="runtestsCustomRadioButton" min="-2" max="-2" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
-                              <Component id="runtestsTextField" min="-2" pref="276" max="-2" attributes="0"/>
+                              <Component id="runtestsTextField" min="-2" pref="285" max="-2" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
                               <Component id="runtestsButton" min="-2" max="-2" attributes="0"/>
                           </Group>
