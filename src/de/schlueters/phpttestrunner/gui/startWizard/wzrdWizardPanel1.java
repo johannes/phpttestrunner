@@ -80,6 +80,7 @@ public class wzrdWizardPanel1 implements WizardDescriptor.Panel {
     // settings object will be the WizardDescriptor, so you can use
     // WizardDescriptor.getProperty & putProperty to store information entered
     // by the user.
+    @Override
     public void readSettings(Object settings) {
     }
 

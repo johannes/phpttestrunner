@@ -19,6 +19,7 @@ public final class wzrdWizardAction extends CallableSystemAction {
 
     private WizardDescriptor.Panel[] panels;
 
+    @Override
     public void performAction() {
         WizardDescriptor wizardDescriptor = new WizardDescriptor(getPanels());
         // {0} will be replaced by WizardDesriptor.Panel.getComponent().getName()
@@ -67,6 +68,7 @@ public final class wzrdWizardAction extends CallableSystemAction {
         return panels;
     }
 
+    @Override
     public String getName() {
         return "Start Sample Wizard";
     }
@@ -76,6 +78,7 @@ public final class wzrdWizardAction extends CallableSystemAction {
         return null;
     }
 
+    @Override
     public HelpCtx getHelpCtx() {
         return HelpCtx.DEFAULT_HELP;
     }
