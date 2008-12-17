@@ -18,6 +18,7 @@ import org.openide.DialogDisplayer;
 import org.openide.WizardDescriptor;
 
 import java.io.File;
+import java.io.IOException;
 import javax.swing.SwingWorker;
 
 public final class phptAction extends CallableSystemAction {
@@ -47,15 +48,20 @@ public final class phptAction extends CallableSystemAction {
 
 		wzrdVisualPanel1 vpanel = (wzrdVisualPanel1)wpanel.getComponent();
 
-        TestWorker runner = new TestWorker(
-            resultfile,
-			vpanel.getTestingBinaryFileName(),
-			vpanel.getTestsDirName(),
-			vpanel.getruntestsFileName(),
-            vpanel.getArguements(),
-            vpanel.getTestedBinaryFileName());
+        try {
+            TestWorker runner = new TestWorker(
+                    resultfile,
+                    vpanel.getTestingBinaryFileName(),
+                    vpanel.getTestsDirName(),
+                    vpanel.getruntestsFileName().getAbsolutePath(),
+                    vpanel.getArguements(),
+                    vpanel.getTestedBinaryFileName());
 
-		runner.execute();
+            runner.execute();
+        } catch (IOException e) {
+            e.printStackTrace();
+            // TODO: Error reporting to user!
+        }
     }
 
     @Override

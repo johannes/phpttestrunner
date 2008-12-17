@@ -5,15 +5,22 @@
 
 package de.schlueters.phpttestrunner.gui.startWizard;
 
+import de.schlueters.phpttestrunner.phptAction;
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.prefs.Preferences;
 import javax.swing.JFileChooser;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.filechooser.FileFilter;
 import org.openide.modules.InstalledFileLocator;
+import org.openide.util.Exceptions;
 
 public final class wzrdVisualPanel1 extends JPanel {
+    private static File myphpt = null;
 
     /** Creates new form wzrdVisualPanel1 */
     public wzrdVisualPanel1(Preferences prefs) {
@@ -31,13 +38,26 @@ public final class wzrdVisualPanel1 extends JPanel {
         return "Step #1";
     }
 
-	public String getruntestsFileName() {
+	public File getruntestsFileName() throws IOException {
+        File phpt;
 		if (runtestBundledRadioButton.isSelected()) {
-			File f = InstalledFileLocator.getDefault().locate("run-tests.php", null, false);
-			return f.getAbsolutePath();
+            if (myphpt == null) {
+                InputStream in = phptAction.class.getResourceAsStream("run-tests.php");
+                myphpt = File.createTempFile("run-tests.", ".php");
+                myphpt.deleteOnExit();
+                FileOutputStream out = new FileOutputStream(myphpt);
+                byte[] data = new byte[in.available()];
+                in.read(data);
+                out.write(data);
+            }
+            phpt = myphpt;
 		} else {
-			return runtestsTextField.getText();
-		}
+            phpt = new File(runtestsTextField.getText());
+            if (!phpt.exists()) {
+                throw new IOException();
+            }
+        }
+        return phpt;
 	}
 
 	public String getTestedBinaryFileName() {

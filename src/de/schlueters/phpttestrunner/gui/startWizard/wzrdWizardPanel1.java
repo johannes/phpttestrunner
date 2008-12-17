@@ -5,6 +5,7 @@
 package de.schlueters.phpttestrunner.gui.startWizard;
 
 import java.awt.Component;
+import java.io.IOException;
 import java.util.prefs.Preferences;
 import javax.swing.event.ChangeListener;
 import org.openide.WizardDescriptor;
@@ -82,10 +83,15 @@ public class wzrdWizardPanel1 implements WizardDescriptor.Panel {
     public void readSettings(Object settings) {
     }
 
+    @Override
     public void storeSettings(Object settings) {
 		wzrdVisualPanel1 panel = (wzrdVisualPanel1)getComponent();
 		Preferences prefs = NbPreferences.forModule(this.getClass());
-		prefs.put("runtests", panel.getruntestsFileName());
+        try {
+            prefs.put("runtests", panel.getruntestsFileName().getAbsolutePath());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
 		prefs.put("tested",   panel.getTestedBinaryFileName());
 		prefs.put("testing",  panel.getTestingBinaryFileName());
 		prefs.put("tests",    panel.getTestsDirName());

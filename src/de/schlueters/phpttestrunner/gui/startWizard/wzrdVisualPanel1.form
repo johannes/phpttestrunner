@@ -34,12 +34,12 @@
                       <EmptySpace min="-2" pref="18" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Group type="102" attributes="0">
-                              <Component id="testsTextField" pref="302" max="32767" attributes="1"/>
+                              <Component id="testsTextField" pref="306" max="32767" attributes="1"/>
                               <EmptySpace max="-2" attributes="0"/>
                               <Component id="testsButton" min="-2" max="-2" attributes="0"/>
                           </Group>
                           <Group type="102" alignment="0" attributes="0">
-                              <Component id="testedTextField" pref="302" max="32767" attributes="1"/>
+                              <Component id="testedTextField" pref="306" max="32767" attributes="1"/>
                               <EmptySpace max="-2" attributes="0"/>
                               <Component id="testedButton" min="-2" max="-2" attributes="0"/>
                           </Group>
@@ -68,7 +68,7 @@
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Component id="arguementsTextField" alignment="0" pref="335" max="32767" attributes="0"/>
                           <Group type="102" alignment="0" attributes="0">
-                              <Component id="testingTextField" pref="305" max="32767" attributes="0"/>
+                              <Component id="testingTextField" pref="309" max="32767" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
                               <Component id="testingButton" min="-2" max="-2" attributes="0"/>
                           </Group>
