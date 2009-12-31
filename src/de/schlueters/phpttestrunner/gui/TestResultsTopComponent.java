@@ -229,7 +229,7 @@ public final class TestResultsTopComponent extends TopComponent {
 			org.openide.filesystems.FileObject fo = org.openide.filesystems.FileUtil.toFileObject(f);
 			DataObject d = DataObject.find(fo);
 			EditorCookie ec;
-			ec= (EditorCookie)d.getCookie(EditorCookie.class);
+			ec = d.getCookie(EditorCookie.class);
 			ec.open();
 			javax.swing.text.StyledDocument doc = ec.openDocument();
 		} catch (Exception e) {
